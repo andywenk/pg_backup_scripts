@@ -75,7 +75,7 @@ create_empty_database() {
 program_is_available() {
 	program=$1
 	available=`which $program`
-	if [[ $availabel == ''  ]]
+	if [[ $available == ''  ]]
 	then 
 		echo "ERROR: the program $program is not available. Terminating program ..."
 		exit 1
