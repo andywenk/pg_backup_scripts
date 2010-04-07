@@ -26,7 +26,7 @@ run_backup() {
 	echo "Now restoring the data ..."
 	echo 
 	
-  # now run all the methods to get the backup into the database
+        # now run all the methods to get the backup into the database
 	cut_connection $database
         drop_database $port $database 
         create_empty_database $port $user $database
