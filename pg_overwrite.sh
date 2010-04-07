@@ -19,9 +19,9 @@ run_backup() {
 	# checking whether we use the standard port or the given
 	if [[ -z $4 ]]
 	then
-		port=5432
+	  port=5432
 	else
-		port=$4
+	  port=$4
 	fi
 
 	# fancy message for the user ;-)
@@ -41,6 +41,20 @@ cut_connection() {
 	ps aux | grep "postgres: pgadmin $database" | grep -v grep | awk '{print $2}' | while read pid; do kill $pid;done
 }
 
+#We delete the database. An error is thrown when it's not possible to do that. 
+drop_database() {
+	port=$1
+	database=$2
+	
+	# check if dropdb is availabel
+	program_is_available 'dropdb'
+
+	if ! dropdb -p $port -q $database; then 
+  	  echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. terminating program ..." >&2
+          exit 1
+	fi      
+}
+
 # Create an empty database for the provided user
 create_empty_database() {
 	port=$1
@@ -56,20 +70,6 @@ create_empty_database() {
            exit 1
 	fi      
 } 
-
-#We delete the database. An error is thrown when it's not possible to do that. 
-drop_database() {
-	port=$1
-	database=$2
-	
-	# check if dropdb is availabel
-	program_is_available 'dropdb'
-
-	if ! dropdb -p $port -q $database; then 
-  	  echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. terminating program ..." >&2
-          exit 1
-	fi      
-}
 
 # helper method to check, if a program is available on the system
 program_is_available() {
