@@ -50,7 +50,7 @@ drop_database() {
 	program_is_available 'dropdb'
 
 	if ! dropdb -p $port -q $database; then 
-  	  echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. terminating program ..." >&2
+  	  echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. Terminating program ..." >&2
           exit 1
 	fi      
 }
@@ -85,7 +85,7 @@ program_is_available() {
 # show the help and how to use this script
 print_help() {
 cat << EOF
-pg_restore.sh (c) 2010 Andreas Wenk
+pg_overwrite.sh (c) 2010 Andreas Wenk
 
 This script is restoring a given SQL dump in plain text into your 
 PostgreSQL database. You have to provide at least the options
