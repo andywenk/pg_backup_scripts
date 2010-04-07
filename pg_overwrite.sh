@@ -28,8 +28,8 @@ run_backup() {
 	
   # now run all the methods to get the backup into the database
 	cut_connection $database
-  drop_database $port $database 
-  create_empty_database $port $user $database
+        drop_database $port $database 
+        create_empty_database $port $user $database
 }
 
 # We cut all the connections to the database
@@ -41,15 +41,16 @@ cut_connection() {
 # Create an empty database for the provided user
 create_empty_database() {
 	port=$1
-  user=$2
-  database=$3
+        user=$2
+        database=$3
 	
 	# check if createdb is available
 	program_is_available 'createdb'
 
-	if ! createdb -p $port -q --owner=$user --encoding=UTF8 $database; then
-  	echo "ERROR: not possible to create the database $database on port $port for user $user. Terminating program ..." >&2
-    exit 1
+	if ! createdb -p $port -q --owner=$user --encoding=UTF8 $database; 
+        then
+  	   echo "ERROR: not possible to create the database $database on port $port for user $user. Terminating program ..." >&2
+           exit 1
 	fi      
 } 
 
@@ -62,8 +63,8 @@ drop_database() {
 	program_is_available 'dropdb'
 
 	if ! dropdb -p $port -q $database; then 
-  	echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. terminating program ..." >&2
-    exit 1
+  	  echo "ERROR: somebody is working on the database $database. It is not possible to delete the database. terminating program ..." >&2
+          exit 1
 	fi      
 }
 
@@ -112,7 +113,7 @@ do
 	case $OPTION in
 		d) database="$OPTARG";;
 		u) user="$OPTARG";;
-    b) backup="$OPTARG";;
+                b) backup="$OPTARG";;
 		p) port="$OPTARG";;
 		h) print_help_uu; exit 1;; 
   esac
