@@ -4,7 +4,10 @@
 #
 # pg_overwrite.sh
 #
-# Script to write a backup into a PostgreSQL database
+# Script to write a backup into a PostgreSQL database. This is basically meant to use it for daily restoring a 
+# test database or dem database or stuff like that. For sure you could also use pg_restore but it's fun to code and
+# to understand now how to work with options when calling a shell script. You can use this as a start point for some other 
+# tasks ans scripts.
 
 # The main method which runs the process
 # args: database user port backup
