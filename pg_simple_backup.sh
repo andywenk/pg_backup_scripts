@@ -17,6 +17,7 @@ DATE=`/bin/date "+%F-%T"`
 
 # Directory where to write the backup
 BACKUPDIR="/var/backups/postgres/" 
+BACKUPDIR="/tmp/" 
 
 # This is a common file extension for a binary backuo file
 FILEFORMAT=".bak" 
@@ -25,20 +26,13 @@ FILEFORMAT=".bak"
 SERVER=`hostname`
 
 # The port on which the PostgreSQL is running at
-PORT=5432
+PORT=5433
 
 # With the use of the CLI programm psql we fire a query to the 
 # table pg_database in the schema pg_catalog to get all names of 
 # the excisting databases. What we do not want is the database
 # postgres and all the template databases 
-psql -t -c 
-" SELECT datname 
-  FROM pg_catalog.pg_database 
-  WHERE  
-  (datname NOT LIKE 'template%' AND datname != 'postgres');" 
-
-# This is a pipe! 
-|  
+psql -t -c " SELECT datname FROM pg_catalog.pg_database WHERE  (datname NOT LIKE 'template%' AND datname != 'postgres');" |
 
 # Iterating over the result form the query
 while read i; do
@@ -49,4 +43,4 @@ while read i; do
 	fi; done
 
 # Here we delete all backup files older than seven days
-find $BACKUPDIR -ctime +7 -exec rm {};
+find $BACKUPDIR -ctime +7 -exec rm {} \;
