@@ -17,7 +17,6 @@ DATE=`/bin/date "+%F-%T"`
 
 # Directory where to write the backup
 BACKUPDIR="/var/backups/postgres/" 
-BACKUPDIR="/tmp/" 
 
 # This is a common file extension for a binary backuo file
 FILEFORMAT=".bak" 
